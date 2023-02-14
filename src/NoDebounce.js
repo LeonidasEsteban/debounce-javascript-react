@@ -1,44 +1,26 @@
 import React, { useState, useEffect } from "react";
 
-const useDebounce = (value, delay) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-};
-
 const App = () => {
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState({});
   const [loading, setLoading] = useState(false);
   const [requestCount, setRequestCount] = useState(0);
 
-  const debouncedQuery = useDebounce(query, 500);
-
   useEffect(() => {
     async function fetchPokemon() {
-      if (debouncedQuery.trim() === "") {
+      if (query.trim() === "") {
         setPokemon({});
         return;
       }
       setLoading(true);
       setRequestCount(requestCount + 1);
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${debouncedQuery.toLowerCase()}`);
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`);
       const data = await res.json();
       setPokemon(data);
       setLoading(false);
     }
     fetchPokemon();
-  }, [debouncedQuery]);
+  }, [query]);
 
   return (
     <div className="pokedex">

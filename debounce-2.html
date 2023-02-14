@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debounce</title>
+</head>
+
+<body>
+  <input type="search" id="search" placeholder="Quién es ese pokemon">
+
+  <script>
+    function debounce(func, delay) {
+      let timer;
+      return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
+    }
+
+    const searchInput = document.getElementById("search");
+
+    function handleChange(e) {
+      console.log(e.target.value);
+    }
+
+    searchInput.addEventListener("input", debounce(handleChange, 500));
+  </script>
+</body>
+
+</html>

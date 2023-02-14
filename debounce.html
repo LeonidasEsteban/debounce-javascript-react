@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debounce</title>
+</head>
+
+<body>
+  <input type="search" id="search" placeholder="Quién es ese pokemon">
+  <script>
+    const searchInput = document.querySelector('#search');
+    let timeoutId;
+
+    searchInput.addEventListener('input', function () {
+      clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(function () {
+        // Aquí se puede hacer la solicitud a la base de datos
+        console.log(`Realizando solicitud a la base de datos con "${searchInput.value}"`);
+      }, 500);
+    });
+  </script>
+</body>
+
+</html>
